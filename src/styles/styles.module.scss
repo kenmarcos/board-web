@@ -1,7 +1,67 @@
-.title {
-  color: green;
+.contentContainer {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3rem;
 
-  span {
-    color: red;
+  img {
+    width: 25rem;
+  }
+}
+
+.callToAction {
+  max-width: 700px;
+
+  h1 {
+    font-size: 1.8rem;
+    text-align: center;
+    margin-top: 2rem;
+    color: #141a29;
+  }
+
+  p {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 1.5rem;
+    color: #141a29;
+
+    span {
+      color: #04dd75;
+      font-weight: bold;
+    }
+  }
+}
+
+.donaters {
+  h3 {
+    text-align: center;
+    margin: 2rem 0 1rem 0;
+  }
+
+  div {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+
+    img {
+      display: block;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      transition: all 0.2s;
+
+      & + img {
+        margin-left: 1rem;
+      }
+    }
+
+    img:hover {
+      transform: scale(1.2);
+    }
   }
 }
