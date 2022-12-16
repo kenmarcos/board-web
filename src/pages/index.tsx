@@ -8,7 +8,7 @@ export default function Home() {
       <Head>
         <title>Board - Organizando seu dia</title>
       </Head>
-      <main className={styles.contentContainer}>
+      <main className={styles.container}>
         <picture>
           <img src="/images/board-user.svg" alt="Ferramenta Board" />
         </picture>
