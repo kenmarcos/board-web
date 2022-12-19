@@ -1,5 +1,7 @@
 import styles from "components/TaskCard/styles.module.scss";
+import { Dispatch, SetStateAction } from "react";
 import { FiCalendar, FiCheckCircle, FiEdit2, FiTrash } from "react-icons/fi";
+import firebase from "services/firebaseConnection";
 
 interface Task {
   id: string;
@@ -10,9 +12,29 @@ interface Task {
 }
 interface TaskCardProps {
   task: Task;
+  tasks: Task[];
+  setTasks: Dispatch<SetStateAction<Task[]>>;
 }
 
 export const TaskCard = (props: TaskCardProps) => {
+  const handleDelete = async (taskId: string) => {
+    await firebase
+      .firestore()
+      .collection("tasks")
+      .doc(taskId)
+      .delete()
+      .then(() => {
+        console.log("TAREFA EXCLUÍDA COM SUCESSO!");
+
+        let updatedTasks = props.tasks.filter((task) => task.id !== taskId);
+
+        props.setTasks(updatedTasks);
+      })
+      .catch((error) => {
+        console.log("ERRO: ", error);
+      });
+  };
+
   return (
     <div className={styles.container}>
       <p>{props.task?.task}</p>
@@ -30,7 +52,7 @@ export const TaskCard = (props: TaskCardProps) => {
           </button>
         </div>
 
-        <button>
+        <button onClick={() => handleDelete(props.task.id)}>
           <FiTrash size={20} color="#FF3636" />
           <span>Excluir</span>
         </button>

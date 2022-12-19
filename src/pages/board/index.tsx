@@ -82,12 +82,16 @@ const Board = (props: BoardProps) => {
 
         <section className={styles.taskList}>
           <h2>
-            Você tem {tasks.length} {tasks.length > 1 ? "tarefas" : "tarefa"}!
+            {!tasks.length
+              ? "Nenhuma tarefa cadastrada"
+              : `Você tem ${tasks.length} ${
+                  tasks.length > 1 ? "tarefas" : "tarefa"
+                }`}
           </h2>
           <ul>
             {tasks.map((task) => (
               <li key={task.id}>
-                <TaskCard task={task} />
+                <TaskCard task={task} tasks={tasks} setTasks={setTasks} />
               </li>
             ))}
           </ul>
