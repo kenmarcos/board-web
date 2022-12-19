@@ -5,6 +5,32 @@
   max-width: 1120px;
   border-radius: 6px;
 
+  .editTask {
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+
+    span {
+      color: #ffb800;
+      font-size: 1.1rem;
+    }
+
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: transparent;
+      border: 1px solid #424242;
+      border-radius: 6px;
+      padding: 0 8px;
+
+      span {
+        color: #ff3636;
+      }
+    }
+  }
+
   form {
     display: flex;
     justify-content: center;
@@ -37,7 +63,7 @@
 
   small {
     display: inline-block;
-    color: #cc2121;
+    color: #ff3636;
     margin-top: 0.5rem;
   }
 

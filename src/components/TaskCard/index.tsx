@@ -14,9 +14,27 @@ interface TaskCardProps {
   task: Task;
   tasks: Task[];
   setTasks: Dispatch<SetStateAction<Task[]>>;
+  setTaskToEdit: Dispatch<SetStateAction<Task | null>>;
 }
 
 export const TaskCard = (props: TaskCardProps) => {
+  const handleEdit = async (task: Task) => {
+    props.setTaskToEdit(task);
+    // await firebase
+    //   .firestore()
+    //   .collection("tasks")
+    //   .doc(taskId)
+    //   .delete()
+    //   .then(() => {
+    //     console.log("TAREFA EXCLUÍDA COM SUCESSO!");
+    //     let updatedTasks = props.tasks.filter((task) => task.id !== taskId);
+    //     props.setTasks(updatedTasks);
+    //   })
+    //   .catch((error) => {
+    //     console.log("ERRO: ", error);
+    //   });
+  };
+
   const handleDelete = async (taskId: string) => {
     await firebase
       .firestore()
@@ -46,7 +64,7 @@ export const TaskCard = (props: TaskCardProps) => {
             <time>{props.task?.formattedCreatedAt}</time>
           </div>
 
-          <button>
+          <button onClick={() => handleEdit(props.task)}>
             <FiEdit2 size={20} color="#FFF" />
             <span>Editar</span>
           </button>

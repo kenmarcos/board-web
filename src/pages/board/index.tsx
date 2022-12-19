@@ -5,13 +5,13 @@ import { Session, unstable_getServerSession } from "next-auth";
 import Head from "next/head";
 import { authOptions } from "pages/api/auth/[...nextauth]";
 import styles from "pages/board/styles.module.scss";
-import { FiClock, FiPlus } from "react-icons/fi";
+import { FiClock, FiPlus, FiX } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import firebase from "services/firebaseConnection";
 import { format } from "date-fns";
 import { useState } from "react";
 
-interface TaskCreateForm {
+interface TaskForm {
   task: string;
 }
 
@@ -30,14 +30,38 @@ interface BoardProps {
 
 const Board = (props: BoardProps) => {
   const [tasks, setTasks] = useState<Task[]>(JSON.parse(props.tasksData));
+  const [taskToEdit, setTaskToEdit] = useState<Task | null>(null);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<TaskCreateForm>();
+  } = useForm<TaskForm>();
 
-  const onSubmitFunction = async (data: TaskCreateForm) => {
+  const onSubmitFunction = async (data: TaskForm) => {
+    if (taskToEdit) {
+      await firebase
+        .firestore()
+        .collection("tasks")
+        .doc(taskToEdit.id)
+        .update({
+          task: data.task,
+        })
+        .then(() => {
+          let taskList = tasks;
+          let taskIndex = tasks.findIndex((task) => task.id === taskToEdit.id);
+          taskList[taskIndex].task = data.task;
+
+          setTasks(taskList);
+          setTaskToEdit(null);
+        })
+        .catch((error) => {
+          console.log("ERRO AO EDITAR TAREFA: ", error);
+        });
+
+      return;
+    }
+
     await firebase
       .firestore()
       .collection("tasks")
@@ -68,11 +92,22 @@ const Board = (props: BoardProps) => {
     <>
       <Head>Board - Minhas tarefas</Head>
       <main className={styles.container}>
+        {!!taskToEdit && (
+          <div className={styles.editTask}>
+            <span>Editar tarefa</span>
+
+            <button onClick={() => setTaskToEdit(null)}>
+              <FiX size={20} color="#ff3636" />
+              <span>Cancelar</span>
+            </button>
+          </div>
+        )}
         <form onSubmit={handleSubmit(onSubmitFunction)}>
           <input
             type="text"
             placeholder="Digite sua tarefa..."
             {...register("task", { required: "*Campo obrigatório" })}
+            defaultValue={taskToEdit?.task}
           />
           <button type="submit">
             <FiPlus color="#17181F" size={25} />
@@ -91,7 +126,12 @@ const Board = (props: BoardProps) => {
           <ul>
             {tasks.map((task) => (
               <li key={task.id}>
-                <TaskCard task={task} tasks={tasks} setTasks={setTasks} />
+                <TaskCard
+                  task={task}
+                  tasks={tasks}
+                  setTasks={setTasks}
+                  setTaskToEdit={setTaskToEdit}
+                />
               </li>
             ))}
           </ul>
