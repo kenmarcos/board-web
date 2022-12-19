@@ -1,16 +1,27 @@
 import styles from "components/TaskCard/styles.module.scss";
 import { FiCalendar, FiCheckCircle, FiEdit2, FiTrash } from "react-icons/fi";
 
-export const TaskCard = () => {
+interface Task {
+  id: string;
+  task: string;
+  user: { id: string; user: string };
+  createdAt: string | Date;
+  formattedCreatedAt?: string;
+}
+interface TaskCardProps {
+  task: Task;
+}
+
+export const TaskCard = (props: TaskCardProps) => {
   return (
     <div className={styles.container}>
-      <p>Aprender a criar projetos NextJS e aplicando firebase como back</p>
+      <p>{props.task?.task}</p>
 
       <div className={styles.actions}>
         <div className={styles.actionsBox}>
           <div>
             <FiCalendar size={20} color="#FFB800" />
-            <time>16 Dezembro 2022</time>
+            <time>{props.task?.formattedCreatedAt}</time>
           </div>
 
           <button>

@@ -8,16 +8,29 @@ import styles from "pages/board/styles.module.scss";
 import { FiClock, FiPlus } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import firebase from "services/firebaseConnection";
-
-interface BoardProps {
-  user: { id: string; user: string };
-}
+import { format } from "date-fns";
+import { useState } from "react";
 
 interface TaskCreateForm {
   task: string;
 }
 
+interface Task {
+  id: string;
+  task: string;
+  user: { id: string; user: string };
+  createdAt: string | Date;
+  formattedCreatedAt?: string;
+}
+
+interface BoardProps {
+  user: { id: string; user: string };
+  tasksData: string;
+}
+
 const Board = (props: BoardProps) => {
+  const [tasks, setTasks] = useState<Task[]>(JSON.parse(props.tasksData));
+
   const {
     register,
     handleSubmit,
@@ -35,6 +48,16 @@ const Board = (props: BoardProps) => {
       })
       .then((doc) => {
         console.log("CADASTRO FEITO COM SUCESSO!");
+
+        let tasksData = {
+          id: doc.id,
+          task: data.task,
+          user: props.user,
+          createdAt: new Date(),
+          formattedCreatedAt: format(new Date(), "dd MMMM yyyy"),
+        };
+
+        setTasks([...tasks, tasksData]);
       })
       .catch((error) => {
         console.log("ERRO DE CADASTRO: ", error);
@@ -58,26 +81,15 @@ const Board = (props: BoardProps) => {
         {errors.task && <small>{errors.task?.message}</small>}
 
         <section className={styles.taskList}>
-          <h2>Você tem 10 tarefas!</h2>
+          <h2>
+            Você tem {tasks.length} {tasks.length > 1 ? "tarefas" : "tarefa"}!
+          </h2>
           <ul>
-            <li>
-              <TaskCard />
-            </li>
-            <li>
-              <TaskCard />
-            </li>
-            <li>
-              <TaskCard />
-            </li>
-            <li>
-              <TaskCard />
-            </li>
-            <li>
-              <TaskCard />
-            </li>
-            <li>
-              <TaskCard />
-            </li>
+            {tasks.map((task) => (
+              <li key={task.id}>
+                <TaskCard task={task} />
+              </li>
+            ))}
           </ul>
         </section>
       </main>
@@ -103,8 +115,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     authOptions
   );
 
-  console.log(session);
-
   if (!session) {
     return {
       redirect: {
@@ -114,6 +124,26 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
+  const tasks = await firebase
+    .firestore()
+    .collection("tasks")
+    .where("user.id", "==", session.id)
+    .orderBy("createdAt", "asc")
+    .get();
+
+  const tasksData = JSON.stringify(
+    tasks.docs.map((item) => {
+      return {
+        id: item.id,
+        formattedCreatedAt: format(
+          item.data().createdAt.toDate(),
+          "dd MMMM yyyy"
+        ),
+        ...item.data(),
+      };
+    })
+  );
+
   const user = {
     id: session.id,
     name: session.user?.name,
@@ -122,6 +152,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       user,
+      tasksData,
     },
   };
 };
