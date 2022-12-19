@@ -1,4 +1,5 @@
 import styles from "components/TaskCard/styles.module.scss";
+import Link from "next/link";
 import { Dispatch, SetStateAction } from "react";
 import { FiCalendar, FiCheckCircle, FiEdit2, FiTrash } from "react-icons/fi";
 import firebase from "services/firebaseConnection";
@@ -20,19 +21,6 @@ interface TaskCardProps {
 export const TaskCard = (props: TaskCardProps) => {
   const handleEdit = async (task: Task) => {
     props.setTaskToEdit(task);
-    // await firebase
-    //   .firestore()
-    //   .collection("tasks")
-    //   .doc(taskId)
-    //   .delete()
-    //   .then(() => {
-    //     console.log("TAREFA EXCLUÍDA COM SUCESSO!");
-    //     let updatedTasks = props.tasks.filter((task) => task.id !== taskId);
-    //     props.setTasks(updatedTasks);
-    //   })
-    //   .catch((error) => {
-    //     console.log("ERRO: ", error);
-    //   });
   };
 
   const handleDelete = async (taskId: string) => {
@@ -55,7 +43,9 @@ export const TaskCard = (props: TaskCardProps) => {
 
   return (
     <div className={styles.container}>
-      <p>{props.task?.task}</p>
+      <Link href={`/board/task/${props.task.id}`}>
+        <p>{props.task?.task}</p>
+      </Link>
 
       <div className={styles.actions}>
         <div className={styles.actionsBox}>

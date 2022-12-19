@@ -9,7 +9,7 @@
     margin-bottom: 0.5rem;
     display: flex;
     align-items: flex-end;
-    gap: 1rem;
+    gap: 2rem;
 
     span {
       color: #ffb800;
@@ -24,9 +24,19 @@
       border: 1px solid #424242;
       border-radius: 6px;
       padding: 0 8px;
+      transition: all 0.2s;
+      &:hover {
+        background-color: #424242;
+        span,
+        svg {
+          color: #fff;
+        }
+      }
 
-      span {
+      span,
+      svg {
         color: #ff3636;
+        transition: all 0.2s;
       }
     }
   }

@@ -1,7 +1,7 @@
 import { SupportButton } from "components/SuppotButton";
 import { TaskCard } from "components/TaskCard";
 import { GetServerSideProps } from "next";
-import { Session, unstable_getServerSession } from "next-auth";
+import { unstable_getServerSession } from "next-auth";
 import Head from "next/head";
 import { authOptions } from "pages/api/auth/[...nextauth]";
 import styles from "pages/board/styles.module.scss";
@@ -97,7 +97,7 @@ const Board = (props: BoardProps) => {
             <span>Editar tarefa</span>
 
             <button onClick={() => setTaskToEdit(null)}>
-              <FiX size={20} color="#ff3636" />
+              <FiX size={20} />
               <span>Cancelar</span>
             </button>
           </div>

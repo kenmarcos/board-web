@@ -1,0 +1,37 @@
+.title {
+  font-size: 1.8rem;
+  text-align: center;
+  margin-top: 2rem;
+  color: #141a29;
+}
+
+.container {
+  background-color: #17181f;
+  margin: 2rem auto;
+  padding: 2rem;
+  max-width: 1120px;
+  border-radius: 6px;
+
+  .actions {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+
+    span {
+      color: #fff;
+      margin: 0 5px;
+    }
+
+    time {
+      color: #ffb800;
+      margin-left: 0.5rem;
+    }
+  }
+
+  p {
+    color: #f2f6fc;
+    line-height: 150%;
+  }
+}
