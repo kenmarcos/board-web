@@ -6,22 +6,56 @@ import Head from "next/head";
 import { authOptions } from "pages/api/auth/[...nextauth]";
 import styles from "pages/board/styles.module.scss";
 import { FiClock, FiPlus } from "react-icons/fi";
+import { useForm } from "react-hook-form";
+import firebase from "services/firebaseConnection";
 
 interface BoardProps {
-  session: Session;
+  user: { id: string; user: string };
+}
+
+interface TaskCreateForm {
+  task: string;
 }
 
 const Board = (props: BoardProps) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TaskCreateForm>();
+
+  const onSubmitFunction = async (data: TaskCreateForm) => {
+    await firebase
+      .firestore()
+      .collection("tasks")
+      .add({
+        task: data.task,
+        user: props.user,
+        createdAt: new Date(),
+      })
+      .then((doc) => {
+        console.log("CADASTRO FEITO COM SUCESSO!");
+      })
+      .catch((error) => {
+        console.log("ERRO DE CADASTRO: ", error);
+      });
+  };
+
   return (
     <>
       <Head>Board - Minhas tarefas</Head>
       <main className={styles.container}>
-        <form>
-          <input type="text" placeholder="Digite sua tarefa..." />
-          <button>
+        <form onSubmit={handleSubmit(onSubmitFunction)}>
+          <input
+            type="text"
+            placeholder="Digite sua tarefa..."
+            {...register("task", { required: "*Campo obrigatório" })}
+          />
+          <button type="submit">
             <FiPlus color="#17181F" size={25} />
           </button>
         </form>
+        {errors.task && <small>{errors.task?.message}</small>}
 
         <section className={styles.taskList}>
           <h2>Você tem 10 tarefas!</h2>
@@ -69,6 +103,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     authOptions
   );
 
+  console.log(session);
+
   if (!session) {
     return {
       redirect: {
@@ -78,9 +114,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
+  const user = {
+    id: session.id,
+    name: session.user?.name,
+  };
+
   return {
     props: {
-      session,
+      user,
     },
   };
 };
