@@ -31,7 +31,9 @@ export const LoginButton = () => {
       ) : (
         <FaGithub color="#FFB800" />
       )}
-      {!!session ? `Olá, ${session.user?.name}` : "Entrar com GitHub"}
+      <span>
+        {!!session ? `Olá, ${session.user?.name}` : "Entrar com GitHub"}
+      </span>
       {!!session && <FiX color="#737380" />}
     </button>
   );

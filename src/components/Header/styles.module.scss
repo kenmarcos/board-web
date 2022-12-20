@@ -1,6 +1,11 @@
 .headerContainer {
   height: 6rem;
   background-color: #141a29;
+  padding: 0 1rem;
+
+  @media screen and (min-width: 1120px) {
+    padding: 0;
+  }
 }
 
 .headerContent {
@@ -15,19 +20,20 @@
   }
 
   nav {
-    margin-left: 5rem;
+    margin-left: 2rem;
     height: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+
+    @media screen and (min-width: 576px) {
+      flex-direction: row;
+      align-items: center;
+    }
 
     a {
       color: #fff;
-      height: 100%;
-      display: inline-block;
-      position: relative;
-      line-height: 5rem;
-      padding: 0 0.5rem;
-      & + a {
-        margin-left: 2rem;
-      }
     }
   }
 

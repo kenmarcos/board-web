@@ -11,6 +11,7 @@ import firebase from "services/firebaseConnection";
 import { format, formatDistance } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useState } from "react";
+import classNames from "classnames";
 
 interface TaskForm {
   task: string;
@@ -36,8 +37,13 @@ const Board = (props: BoardProps) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<TaskForm>();
+
+  const inputClass = classNames({
+    inputError: errors.task,
+  });
 
   const onSubmitFunction = async (data: TaskForm) => {
     if (taskToEdit) {
@@ -59,6 +65,8 @@ const Board = (props: BoardProps) => {
         .catch((error) => {
           console.log("ERRO AO EDITAR TAREFA: ", error);
         });
+
+      reset();
 
       return;
     }
@@ -87,6 +95,8 @@ const Board = (props: BoardProps) => {
       .catch((error) => {
         console.log("ERRO DE CADASTRO: ", error);
       });
+
+    reset();
   };
 
   return (
@@ -107,6 +117,7 @@ const Board = (props: BoardProps) => {
         )}
         <form onSubmit={handleSubmit(onSubmitFunction)}>
           <input
+            className={styles[inputClass]}
             type="text"
             placeholder="Digite sua tarefa..."
             {...register("task", { required: "*Campo obrigatório" })}
@@ -116,7 +127,7 @@ const Board = (props: BoardProps) => {
             <FiPlus color="#17181F" size={25} />
           </button>
         </form>
-        {errors.task && <small>{errors.task?.message}</small>}
+        {!!errors.task && <small>{errors.task?.message}</small>}
 
         <section className={styles.taskList}>
           <h2>

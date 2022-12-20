@@ -60,34 +60,35 @@ const Donate = (props: DonateProps) => {
         <section className={styles.callToAction}>
           <h1>Seja um apoiador deste projeto! 🏆</h1>
           <p>
-            <span>Contribua com apenas</span> R$ 1,00
+            <span>Contribua com apenas</span> R$ 5,00
           </p>
           <strong>
             Apareça na nossa home e tenha funcionalidades exclusivas
           </strong>
-
-          <PayPalButtons
-            createOrder={(data, actions) => {
-              return actions.order.create({
-                purchase_units: [
-                  {
-                    amount: {
-                      value: "1",
+          <div>
+            <PayPalButtons
+              createOrder={(data, actions) => {
+                return actions.order.create({
+                  purchase_units: [
+                    {
+                      amount: {
+                        value: "5",
+                      },
                     },
-                  },
-                ],
-              });
-            }}
-            onApprove={(data, actions) => {
-              return actions.order?.capture().then(function (details) {
-                console.log(
-                  "Compra Aprovada: " + details.payer.name?.given_name
-                );
+                  ],
+                });
+              }}
+              onApprove={(data, actions) => {
+                return actions.order?.capture().then(function (details) {
+                  console.log(
+                    "Compra Aprovada: " + details.payer.name?.given_name
+                  );
 
-                handleSaveDonate();
-              }) as Promise<void>;
-            }}
-          />
+                  handleSaveDonate();
+                }) as Promise<void>;
+              }}
+            />
+          </div>
         </section>
       </main>
     </>

@@ -28,11 +28,11 @@ export default function Home(props: HomeProps) {
         <title>Board - Organizando suas tarefas</title>
       </Head>
       <main className={styles.container}>
-        <Image src={boardUser} alt="Ferramenta Board" />
+        <Image priority src={boardUser} alt="Ferramenta Board" />
 
         <section className={styles.callToAction}>
           <h1>
-            Uma ferramenta para seu dia a dia Escreva, planeje e organize-se...
+            Uma ferramenta para seu dia a dia. Escreva, planeje e se organize...
           </h1>
           <p>
             <span>100% Gratuita</span> e Online

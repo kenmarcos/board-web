@@ -10,6 +10,7 @@
 
   img {
     width: 22rem;
+    height: 22rem;
   }
 
   .vip {
@@ -56,6 +57,12 @@
       background-color: #eee;
       padding: 0.8rem;
       margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    div {
+      width: 20rem;
+      margin: 0 auto 1rem;
     }
   }
 }

@@ -1,6 +1,5 @@
 .loginButton {
   border-radius: 3rem;
-  padding: 0 1.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,8 +22,12 @@
     margin-right: 1rem;
   }
 
-  svg:nth-child(2) {
-    margin-left: 1rem;
+  svg:nth-child(3) {
+    margin-left: 0;
+
+    @media screen and (min-width: 576px) {
+      margin-left: 1rem;
+    }
   }
 
   img {
@@ -32,5 +35,13 @@
     height: 35px;
     margin-right: 1rem;
     border-radius: 50%;
+  }
+
+  span {
+    display: none;
+
+    @media screen and (min-width: 576px) {
+      display: inline;
+    }
   }
 }
