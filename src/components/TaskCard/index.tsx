@@ -16,6 +16,7 @@ interface TaskCardProps {
   tasks: Task[];
   setTasks: Dispatch<SetStateAction<Task[]>>;
   setTaskToEdit: Dispatch<SetStateAction<Task | null>>;
+  isVip: boolean;
 }
 
 export const TaskCard = (props: TaskCardProps) => {
@@ -54,10 +55,12 @@ export const TaskCard = (props: TaskCardProps) => {
             <time>{props.task?.formattedCreatedAt}</time>
           </div>
 
-          <button onClick={() => handleEdit(props.task)}>
-            <FiEdit2 size={20} color="#FFF" />
-            <span>Editar</span>
-          </button>
+          {!!props.isVip && (
+            <button onClick={() => handleEdit(props.task)}>
+              <FiEdit2 size={20} color="#FFF" />
+              <span>Editar</span>
+            </button>
+          )}
         </div>
 
         <button onClick={() => handleDelete(props.task.id)}>

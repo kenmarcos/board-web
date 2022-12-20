@@ -2,6 +2,7 @@ import styles from "components/LoginButton/styles.module.scss";
 import { FaGithub } from "react-icons/fa";
 import { FiX } from "react-icons/fi";
 import { useSession, signIn, signOut } from "next-auth/react";
+import Image from "next/image";
 
 export const LoginButton = () => {
   const { data: session } = useSession();
@@ -21,9 +22,12 @@ export const LoginButton = () => {
       onClick={handleSession}
     >
       {session ? (
-        <picture>
-          <img src={session.user?.image as string} alt="Foto do usuário" />
-        </picture>
+        <Image
+          width={35}
+          height={35}
+          src={session.user?.image as string}
+          alt="Foto do usuário"
+        />
       ) : (
         <FaGithub color="#FFB800" />
       )}

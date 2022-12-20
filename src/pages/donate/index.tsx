@@ -4,6 +4,11 @@ import { unstable_getServerSession } from "next-auth";
 import Head from "next/head";
 import { authOptions } from "pages/api/auth/[...nextauth]";
 import styles from "pages/donate/styles.module.scss";
+import { PayPalButtons } from "@paypal/react-paypal-js";
+import firebase from "services/firebaseConnection";
+import { useState } from "react";
+import Image from "next/image";
+import rocketImg from "../../../public/images/rocket.svg";
 
 interface DonateProps {
   user: {
@@ -14,6 +19,23 @@ interface DonateProps {
 }
 
 const Donate = (props: DonateProps) => {
+  const [isVip, setIsVip] = useState(false);
+
+  const handleSaveDonate = async () => {
+    await firebase
+      .firestore()
+      .collection("users")
+      .doc(props.user.id)
+      .set({
+        donate: true,
+        lastDonate: new Date(),
+        image: props.user.image,
+      })
+      .then(() => {
+        setIsVip(true);
+      });
+  };
+
   return (
     <>
       <Head>
@@ -21,12 +43,19 @@ const Donate = (props: DonateProps) => {
       </Head>
 
       <main className={styles.container}>
-        <img src="/images/rocket.svg" alt="Ilustração de foguete" />
+        <Image src={rocketImg} alt="Ilustração de foguete" />
 
-        <div className={styles.vip}>
-          <img src={props.user?.image} alt="Foto do usuário apoiador" />
-          <span>Parabéns, você é um novo apoiador!</span>
-        </div>
+        {!!isVip && (
+          <div className={styles.vip}>
+            <Image
+              width={40}
+              height={40}
+              src={props.user?.image}
+              alt="Foto do usuário apoiador"
+            />
+            <span>Parabéns, você é um novo apoiador!</span>
+          </div>
+        )}
 
         <section className={styles.callToAction}>
           <h1>Seja um apoiador deste projeto! 🏆</h1>
@@ -36,6 +65,29 @@ const Donate = (props: DonateProps) => {
           <strong>
             Apareça na nossa home e tenha funcionalidades exclusivas
           </strong>
+
+          <PayPalButtons
+            createOrder={(data, actions) => {
+              return actions.order.create({
+                purchase_units: [
+                  {
+                    amount: {
+                      value: "1",
+                    },
+                  },
+                ],
+              });
+            }}
+            onApprove={(data, actions) => {
+              return actions.order?.capture().then(function (details) {
+                console.log(
+                  "Compra Aprovada: " + details.payer.name?.given_name
+                );
+
+                handleSaveDonate();
+              }) as Promise<void>;
+            }}
+          />
         </section>
       </main>
     </>

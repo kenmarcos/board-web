@@ -49,10 +49,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     authOptions
   );
 
-  if (!session) {
+  if (!session?.isVip) {
     return {
       redirect: {
-        destination: "/",
+        destination: "/board",
         permanent: false,
       },
     };
@@ -76,7 +76,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       };
 
       return JSON.stringify(taskData);
+    })
+    .catch(() => {
+      return {};
     });
+
+  if (!Object.keys(taskData).length) {
+    return {
+      redirect: {
+        destination: "/board",
+        permanent: false,
+      },
+    };
+  }
 
   return {
     props: {

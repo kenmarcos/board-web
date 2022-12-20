@@ -6,7 +6,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 1.8rem;
   min-height: calc(100vh - 6rem);
 
   img {
@@ -14,7 +13,7 @@
   }
 
   .vip {
-    margin-top: 1.8rem;
+    margin-bottom: 1.8rem;
     background-color: #019950;
     border-radius: 6px;
     padding: 1rem 2.5rem;
@@ -36,7 +35,7 @@
   .callToAction {
     h1 {
       text-align: center;
-      margin: 1rem 0;
+      margin-bottom: 1rem;
       font-size: 1.8rem;
       color: #141a29;
     }
@@ -52,6 +51,7 @@
     }
 
     strong {
+      display: inline-block;
       font-size: 1.1rem;
       background-color: #eee;
       padding: 0.8rem;

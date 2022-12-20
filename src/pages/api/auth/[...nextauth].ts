@@ -3,6 +3,7 @@ import GithubProvider, { GithubProfile } from "next-auth/providers/github";
 import { Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import { AdapterUser } from "next-auth/adapters";
+import firebase from "services/firebaseConnection";
 
 interface SessionParams {
   session: Session;
@@ -37,14 +38,31 @@ export const authOptions = {
     // Você pode controlar o que deve ser retornado ao client
     async session({ session, user, token }: SessionParams) {
       try {
+        const lastDonate = await firebase
+          .firestore()
+          .collection("users")
+          .doc(token.sub)
+          .get()
+          .then((snapshot) => {
+            if (snapshot.exists) {
+              return snapshot.data()?.lastDonate.toDate();
+            } else {
+              return null;
+            }
+          });
+
         return {
           ...session,
           id: token.sub,
+          isVip: lastDonate ? true : false,
+          lastDonate: lastDonate,
         };
       } catch {
         return {
           ...session,
           id: null,
+          isVip: false,
+          lastDonate: null,
         };
       }
     },

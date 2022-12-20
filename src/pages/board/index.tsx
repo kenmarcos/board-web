@@ -8,7 +8,8 @@ import styles from "pages/board/styles.module.scss";
 import { FiClock, FiPlus, FiX } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import firebase from "services/firebaseConnection";
-import { format } from "date-fns";
+import { format, formatDistance } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import { useState } from "react";
 
 interface TaskForm {
@@ -24,7 +25,7 @@ interface Task {
 }
 
 interface BoardProps {
-  user: { id: string; user: string };
+  user: { id: string; user: string; isVip: boolean; lastDonate: string | Date };
   tasksData: string;
 }
 
@@ -133,6 +134,7 @@ const Board = (props: BoardProps) => {
                   tasks={tasks}
                   setTasks={setTasks}
                   setTaskToEdit={setTaskToEdit}
+                  isVip={props.user?.isVip}
                 />
               </li>
             ))}
@@ -140,14 +142,21 @@ const Board = (props: BoardProps) => {
         </section>
       </main>
 
-      <div className={styles.vipContainer}>
-        <h3>Obrigado por apoiar este projeto!</h3>
+      {!!props.user.isVip && (
+        <div className={styles.vipContainer}>
+          <h3>Obrigado por apoiar este projeto!</h3>
 
-        <div>
-          <FiClock size={20} color="#fff" />
-          <time>Última doação há cerca de 2 horas</time>
+          <div>
+            <FiClock size={20} color="#fff" />
+            <time>
+              Última doação há cerca de{" "}
+              {formatDistance(new Date(props.user.lastDonate), new Date(), {
+                locale: ptBR,
+              })}
+            </time>
+          </div>
         </div>
-      </div>
+      )}
 
       <SupportButton />
     </>
@@ -191,8 +200,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   );
 
   const user = {
-    id: session.id,
+    id: session?.id,
     name: session.user?.name,
+    isVip: session?.isVip,
+    lastDonate: session?.lastDonate,
   };
 
   return {
