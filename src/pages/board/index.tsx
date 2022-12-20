@@ -90,7 +90,9 @@ const Board = (props: BoardProps) => {
 
   return (
     <>
-      <Head>Board - Minhas tarefas</Head>
+      <Head>
+        <title>Board - Minhas tarefas</title>
+      </Head>
       <main className={styles.container}>
         {!!taskToEdit && (
           <div className={styles.editTask}>

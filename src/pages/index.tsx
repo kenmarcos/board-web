@@ -7,12 +7,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Board - Organizando seu dia</title>
+        <title>Board - Organizando suas tarefas</title>
       </Head>
       <main className={styles.container}>
-        <picture>
-          <img src="/images/board-user.svg" alt="Ferramenta Board" />
-        </picture>
+        <img src="/images/board-user.svg" alt="Ferramenta Board" />
 
         <section className={styles.callToAction}>
           <h1>
