@@ -1,34 +1,78 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Board 🗓️
 
-## Getting Started
+<p align="center">
+    <img alt="home page Board" src="./public/images/home.png" />
+</p>
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## 🗂️ Índice
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **[Sobre o Projeto](#-sobre-o-projeto)**
+- **[Demonstração](#-demonstração)**
+- **[Layout](#-layout)**
+- **[Funcionalidades](#-funcionalidades)**
+- **[Tecnologias](#-tecnologias)**
+- **[Autor](#-autor)**
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## 💻 Sobre o projeto
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+**Board** é uma aplicação básica de gerenciamento de tarefas com o objetivo de tornar o dia a dia mais fácil e eficaz.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Com ele é possível planejar compromissos, reuniões, eventos e tarefas diárias de maneira descomplicada, gratuita e online. 
 
-## Learn More
+Com uma interface simples e intuitiva, **Board** organiza todas as tarefas, garantindo que nada de importante seja esquecido!
 
-To learn more about Next.js, take a look at the following resources:
+## 🚀 Demonstração
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Deploy da aplicação**: [![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=flat-square&logo=vercel&logoColor=white)](https://board-web.vercel.app/)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 🎨 Layout
 
-## Deploy on Vercel
+<p align="center">
+  <img src="./public/images/board.png" width=500>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  <img src="./public/images/donate.png" width=500>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+  <img src="./public/images/details.png" width=500>
+</p>
+
+
+## 💡 Funcionalidades
+
+- [x] Tela inicial com apresentação da aplicação
+  - [x] Login com GitHub
+  - [x] Exibição de fotos dos apoiadores do projeto
+- [x] Tela "Dashboard"
+  - [x] Listagem de tarefas
+  - [x] Cadastro de nova tarefa
+  - [x] Exclusão de tarefa
+  - [x] Edição de tarefa (somente para apoiadores)
+- [x] Tela para poder apoiar o projeto 
+  - [x] Pagamento via PayPal para se tornar apoiador do projeto
+- [x] Tela "Detalhes da Tarefa" (somente para apoiadores)
+  - [x] Exibição de informações detalhadas de uma tarefa específica
+
+## 🛠️ Tecnologias
+
+Para o desenvolvimento desse projeto, as seguintes ferramentas foram utilizadas:
+
+- **[React.js](https://pt-br.reactjs.org/)**
+- **[Next.js](https://nextjs.org/)**
+- **[TypeScript](https://www.typescriptlang.org/)**
+- **[Firebase](https://firebase.google.com/)**
+- **[React Hook Form](https://react-hook-form.com/)**
+- **[React Icons](https://react-icons.github.io/react-icons/)**
+- **[Sass](https://sass-lang.com/)**
+- **[Date-fns](https://date-fns.org/)**
+
+## 👨‍💻 Autor
+
+<img style="border-radius: 15%;" src="https://gitlab.com/uploads/-/system/user/avatar/8603970/avatar.png?width=400" width="70px;" alt=""/>
+
+Marcos Kenji Kuribayashi
+
+[![Linkedin Badge](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=Linkedin&logoColor=white)](https://www.linkedin.com/in/marcos-kuribayashi/) [![Gmail Badge](https://img.shields.io/badge/-marcosken13@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white)](mailto:marcosken13@gmail.com)
+
+---
+
+Desenvolvido por Marcos Kenji Kuribayashi 😉
