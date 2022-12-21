@@ -11,7 +11,7 @@
 - **[Demonstração](#-demonstração)**
 - **[Layout](#-layout)**
 - **[Funcionalidades](#-funcionalidades)**
-- **[Tecnologias](#-tecnologias)**
+- **[Tecnologias](#%EF%B8%8F-tecnologias)**
 - **[Autor](#-autor)**
 
 ## 💻 Sobre o projeto
