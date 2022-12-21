@@ -60,6 +60,7 @@ Para o desenvolvimento desse projeto, as seguintes ferramentas foram utilizadas:
 - **[Next.js](https://nextjs.org/)**
 - **[TypeScript](https://www.typescriptlang.org/)**
 - **[Firebase](https://firebase.google.com/)**
+- **[NextAuth](https://next-auth.js.org/)**
 - **[React Hook Form](https://react-hook-form.com/)**
 - **[React Icons](https://react-icons.github.io/react-icons/)**
 - **[Sass](https://sass-lang.com/)**
