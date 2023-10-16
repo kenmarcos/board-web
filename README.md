@@ -1,7 +1,7 @@
 # Board 🗓️
 
 <p align="center">
-    <img alt="home page Board" src="./public/images/home.png" />
+    <img alt="home page Board" src=".github/home.png" />
 </p>
 
 
@@ -29,11 +29,11 @@ Com uma interface simples e intuitiva, **Board** organiza todas as tarefas, gara
 ## 🎨 Layout
 
 <p align="center">
-  <img src="./public/images/board.png" width=500>
+  <img src=".github/board.png" width=500>
 
-  <img src="./public/images/donate.png" width=500>
+  <img src=".github/donate.png" width=500>
 
-  <img src="./public/images/details.png" width=500>
+  <img src=".github/details.png" width=500>
 </p>
 
 
